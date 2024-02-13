@@ -7,8 +7,8 @@ import { Button } from "@nextui-org/button";
 import { Card, CardBody } from "@nextui-org/card";
 
 export default async function Home() {
-  const { files } = await getAllFiles()
-  console.log(files)
+  const { files } = await getAllFiles();
+  console.log(files);
   return (
     <div className="min-h-screen absolute top-0 w-full antialiased">
       <div className="container z-10 mx-auto mt-16 space-y-3 py-6">
@@ -23,7 +23,11 @@ export default async function Home() {
         </Card>
         <div>
           <ul></ul>
-          {files.map((file) => <li><a href={'https://utfs.io/f/' + file.key}>nigga</a></li>)}
+          {files.map((file) => (
+            <li key={file.id}>
+              <a href={"https://utfs.io/f/" + file.key}>nigga</a>
+            </li>
+          ))}
         </div>
       </div>
       {/* <BackgroundBeams /> */}
