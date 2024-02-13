@@ -1,5 +1,5 @@
 {
-  "name": "clerk-nextjs-quickstart-app-router",
+  "name": "dsync",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,9 +10,26 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.3",
+    "@nextui-org/button": "^2.0.26",
+    "@nextui-org/card": "^2.0.24",
+    "@nextui-org/link": "^2.0.26",
+    "@nextui-org/modal": "^2.0.28",
+    "@nextui-org/navbar": "^2.0.27",
+    "@nextui-org/progress": "^2.0.24",
+    "@nextui-org/react": "^2.2.9",
+    "@nextui-org/theme": "^2.1.17",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@uploadthing/react": "^6.2.2",
+    "@upstash/redis": "^1.28.3",
+    "axios": "^1.6.7",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.3",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hot-toast": "^2.4.1",
+    "tailwind-merge": "^2.2.1",
+    "uploadthing": "^6.3.3"
   },
   "devDependencies": {
     "@types/node": "^20",
