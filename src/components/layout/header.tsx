@@ -7,22 +7,18 @@ import {
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/lib/config";
+import UserCard from "../widgets/UserCard";
 
 
 export default function Header() {
   return (
-    <Navbar className="container mx-auto max-w-full" position="static">
+    <Navbar maxWidth="full" className="container mx-auto sticky top-0" isBlurred>
       <NavbarBrand>
-        <span className={siteConfig.headingFont.className + " text-3xl font-bold text-inherit"}>DSync</span>
+        <span className={" text-3xl font-bold text-inherit"}>DSync</span>
       </NavbarBrand>
       <NavbarContent justify="end">
-        <NavbarItem as="div" className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+        <NavbarItem as="div" className="flex">
+          <UserCard></UserCard>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

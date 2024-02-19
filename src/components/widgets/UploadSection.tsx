@@ -10,15 +10,15 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { UploadIcon } from "./Icons";
+import { UploadIcon } from "@radix-ui/react-icons"; 
 import { useDropzone } from "@uploadthing/react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
-import { useUploadThing } from "@/lib/uploadthing/uploadthing";
+import { useUploadThing } from "@/db/uploadthing/uploadthing";
 import { Card } from "@nextui-org/card";
 import { Spinner } from "@nextui-org/react";
 import { Progress } from "@nextui-org/progress";
-import toast from "react-hot-toast";
-import { sluggify } from "@/lib/utils";
+import { toast } from "sonner";
+
 
 export default function UploadModal() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -60,30 +60,10 @@ function FileUploader() {
     onClientUploadComplete: (e) => {
       setFiles([]);
       setProgress(100);
-      toast.success("uploaded successfully", {
-        style: {
-          padding: "16px",
-          color: "#FFFAEE",
-          backgroundColor: "#334155",
-        },
-        iconTheme: {
-          primary: "#FFFAEE",
-          secondary: "#000000",
-        },
-      });
+      toast.success("uploaded successfully");
     },
     onUploadError: (e) => {
-      toast.error(e.message, {
-        style: {
-          padding: "16px",
-          color: "#FFFAEE",
-          backgroundColor: "#3F3F46",
-        },
-        iconTheme: {
-          primary: "#FFFAEE",
-          secondary: "#000000",
-        },
-      });
+      toast.error(e.message);
     },
   });
 

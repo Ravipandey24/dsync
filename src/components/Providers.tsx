@@ -2,13 +2,23 @@
 "use client";
 import { ClerkProvider } from "@clerk/nextjs";
 import { NextUIProvider } from "@nextui-org/react";
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from "sonner";
+import { dark } from "@clerk/themes";
+import { siteConfig } from "@/lib/config";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
       <NextUIProvider>{children}</NextUIProvider>
-      <Toaster />
+      <Toaster
+        position="top-center"
+        theme="dark"
+        className={siteConfig.bodyFont.className + " text-lg"}
+      />
     </ClerkProvider>
   );
 }
