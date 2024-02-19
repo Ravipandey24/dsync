@@ -30,9 +30,7 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      await addFileToUser(metadata.username!, file.name, file.key);
-      revalidatePath('/dashboard')
-      
+      await addFileToUser(metadata.username!, file.name, file.key);      
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.username };
     }),

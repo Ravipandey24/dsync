@@ -18,6 +18,7 @@ import { Card } from "@nextui-org/card";
 import { Spinner } from "@nextui-org/react";
 import { Progress } from "@nextui-org/progress";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 
 export default function UploadModal() {
@@ -50,6 +51,7 @@ function FileUploader() {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setFiles(acceptedFiles);
   }, []);
+  const router = useRouter();
 
   const { startUpload, isUploading, permittedFileInfo } = useUploadThing("fileUploader", {
     onUploadProgress: (value) => {
@@ -61,6 +63,7 @@ function FileUploader() {
       setFiles([]);
       setProgress(100);
       toast.success("uploaded successfully");
+      router.refresh();
     },
     onUploadError: (e) => {
       toast.error(e.message);

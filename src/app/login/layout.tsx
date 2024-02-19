@@ -2,23 +2,22 @@ import BlurImage from "@/components/widgets/BlurImage";
 import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/lib/config";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { BackgroundBeams } from "@/components/ui/background-beams";
+import { DotBackground } from "@/components/widgets/GridDotBackground";
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-screen overflow-hidden">
-      <div className="flex justify-start">
+    <DotBackground>
+      <div className="h-screen">
         <Link
           href="/"
-          className="absolute text-gray-400 text-2xl font-semibold left-8 top-6 z-20 flex items-center tracking-tight"
+          className="absolute text-gray-300 text-2xl font-semibold left-8 top-6 z-20 flex items-center tracking-tight"
         >
           <span>{siteConfig.name}</span>
         </Link>
-      </div>
-      <div className="h-[calc(100vh-10rem)] flex justify-center items-center">
-        {children}
-      </div>
-      {/* <AspectRatio ratio={16 / 9}>
+        <div className="h-full flex justify-center items-center">
+          {children}
+        </div>
+        {/* <AspectRatio ratio={16 / 9}>
         <BlurImage
           src="/images/auth-layout.jpg"
           alt="network of wires and metal structures in black and white"
@@ -52,8 +51,8 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
           </Link>
         </div>
       </AspectRatio> */}
-      <BackgroundBeams />
-    </div>
+      </div>
+    </DotBackground>
   );
 };
 
