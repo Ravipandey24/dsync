@@ -12,7 +12,7 @@ const page = ({}) => {
         <SignInForm></SignInForm>
       </CardBody>
       <CardFooter className="flex justify-end gap-1">
-        <span>don't have an account?</span>
+        <span>don&apos;t have an account?</span>
         <Link
           href="/register"
           className="tracking-tight hover:underline"
