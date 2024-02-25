@@ -20,7 +20,7 @@ const ErrorCard: FC<ErrorCardProps> = ({
         {children}
         <span className="text-2xl text-center">{heading}</span>
       </CardBody>
-      <CardFooter>
+      <CardFooter className="flex justify-center">
         <span>{description}</span>
       </CardFooter>
     </Card>

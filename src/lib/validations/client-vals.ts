@@ -1,26 +1,23 @@
 import { z } from "zod";
 
-export const signUpFormSchema = z
+export const registerFormSchema = z
   .object({
     username: z.string().min(3, {
       message: "Username must be at least 3 characters.",
     }),
-    password: z
-      .string()
-      .min(5, {
-        message: "Password must be at least 5 characters long",
-      })
-      .max(100)
-      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{5,})/, {
-        message:
-          "Password must contain at least 5 characters, one uppercase, one lowercase, one number and one special character",
-      }),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-});
+    email: z.string().email({
+      message: "Please enter a valid email address",
+    }),
+    profession: z.string().min(3, {
+      message: "Profession must be at least 3 characters.",
+    }),
+    favouriteSeries: z.string().min(3, {
+      message: "Favourite series must be at least 3 characters.",
+    }),
+    favouriteMusicArtist: z.string().min(3, {
+      message: "Favourite music artist must be at least 3 characters.",
+    }),
+  });
 
 export const signInFormSchema = z.object({
   username: z.string().min(3, {
@@ -34,5 +31,5 @@ export const signInFormSchema = z.object({
     .max(100),
 });
 
-export type SignUpFormType = z.infer<typeof signUpFormSchema>;
+export type registerFormType = z.infer<typeof registerFormSchema>;
 export type SignInFormType = z.infer<typeof signInFormSchema>;

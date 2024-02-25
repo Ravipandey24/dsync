@@ -1,5 +1,6 @@
 import SignInForm from "@/components/forms/SignInForm";
-import { Card, CardBody, CardHeader } from "@nextui-org/card";
+import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Link } from "@nextui-org/link";
 
 const page = ({}) => {
   return (
@@ -10,6 +11,15 @@ const page = ({}) => {
       <CardBody>
         <SignInForm></SignInForm>
       </CardBody>
+      <CardFooter className="flex justify-end gap-1">
+        <span>don't have an account?</span>
+        <Link
+          href="/register"
+          className="tracking-tight hover:underline"
+        >
+          register
+        </Link>
+      </CardFooter>
     </Card>
   );
 };

@@ -27,17 +27,12 @@ const UserCard = ({}) => {
   return (
     <Dropdown
       showArrow
-      classNames={{
-        base: "before:bg-default-200", // change arrow background
-        content:
-          "py-1 px-1 border border-default-200 bg-gradient-to-br from-white to-default-200 dark:from-default-50 dark:to-black",
-      }}
     >
       <DropdownTrigger>
         <User
           className="hover:cursor-pointer"
           name={user?.username?.toLocaleUpperCase()}
-          description="Product Designer"
+          description={user?.publicMetadata?.profession as string}
           avatarProps={{
             src: user?.imageUrl
           }}

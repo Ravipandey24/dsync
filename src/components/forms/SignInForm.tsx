@@ -61,7 +61,8 @@ const SignInForm = () => {
         classNames={{
           input: "text-base",
         }}
-        placeholder="username"
+        label="Username"
+        variant="bordered"
         type="text"
         className="text-lg"
         isInvalid={!!errors.username?.message}
@@ -70,7 +71,8 @@ const SignInForm = () => {
       />
       <div className="flex items-center">
         <Input
-          placeholder="password"
+          label="Password"
+          variant="bordered"
           classNames={{
             input: "text-base",
           }}
@@ -97,10 +99,11 @@ const SignInForm = () => {
       <Button
         className="w-full gap-2 text-base"
         type="submit"
+        variant="shadow"
         disabled={!isLoaded}
       >
         <span>Submit</span>
-        {!isLoaded && <Spinner size="sm" color="default"></Spinner>}
+        {!isLoaded && <Spinner size="sm" color="white"></Spinner>}
       </Button>
     </form>
   );
