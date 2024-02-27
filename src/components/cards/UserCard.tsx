@@ -33,7 +33,7 @@ const UserCard = ({}) => {
           }}
         />
       </DropdownTrigger>
-      <DropdownMenu aria-label="profile dropdown" variant="faded">
+      <DropdownMenu aria-label="profile dropdown" variant="flat">
         <DropdownItem
           key="profile"
           className="h-12"
