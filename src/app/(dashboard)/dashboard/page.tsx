@@ -26,15 +26,14 @@ export default async function Home() {
       <Card className="w-full">
         <CardBody
           as="div"
-          className="flex flex-col sm:flex-row justify-between items-end sm:items-center"
+          className="flex flex-row justify-between items-center"
         >
-          <span className="text-lg w-full sm:w-fit justify-start">Dashboard</span>
-          <div className="flex gap-4 items-end">
-            <DataProgressBar dataUsage={dataUsage} limit={limit}></DataProgressBar>
-            <UploadModal availableSpace={availableSpace}></UploadModal>
-          </div>
+          <span className="text-lg justify-start">Dashboard</span>
+
+          <UploadModal availableSpace={availableSpace}></UploadModal>
         </CardBody>
       </Card>
+      <DataProgressBar dataUsage={dataUsage} limit={limit}></DataProgressBar>
       {userFiles.length ? (
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
           {userFiles.map(({ fileName, fileUrl, fileKey, fileSize }, i) => (

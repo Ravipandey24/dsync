@@ -24,7 +24,7 @@ const DeleteModal = ({ children, onDelete, data }: DeleteModalProps) => {
   return (
     <>
       <Tooltip color="danger" content="Delete">
-        <Button isIconOnly color="danger" variant="shadow" onPress={onOpen}>
+        <Button isIconOnly color="danger" variant="light" onPress={onOpen}>
           <TrashIcon className="h-6 w-6" />
         </Button>
       </Tooltip>

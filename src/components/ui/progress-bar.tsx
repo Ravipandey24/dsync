@@ -9,21 +9,24 @@ interface DataProgressBarProps {
 
 const DataProgressBar: FC<DataProgressBarProps> = ({ limit, dataUsage }) => {
   return (
-    <Progress
-      size="sm"
-      classNames={{}}
-      value={dataUsage}
-      maxValue={limit}
-      color={
-        getPercentage(dataUsage, limit) < 50
-          ? "success"
-          : getPercentage(dataUsage, limit) < 80
-          ? "warning"
-          : "danger"
-      }
-      showValueLabel={true}
-      valueLabel={formatByteData(dataUsage) + "/" + formatByteData(limit)}
-    />
+    <div className="flex justify-end">
+      <Progress
+      label="Data Usage"
+        size="sm"
+        className="w-60 lg:w-80"
+        value={dataUsage}
+        maxValue={limit}
+        color={
+          getPercentage(dataUsage, limit) < 50
+            ? "success"
+            : getPercentage(dataUsage, limit) < 80
+            ? "warning"
+            : "danger"
+        }
+        showValueLabel={true}
+        valueLabel={formatByteData(dataUsage) + "/" + formatByteData(limit)}
+      />
+    </div>
   );
 };
 

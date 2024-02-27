@@ -24,6 +24,7 @@ import { FC, Key, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import ErrorCard from "../cards/ErrorCard";
 import DeleteModal from "../ui/modal";
+import { formatByteData } from "@/lib/utils";
 
 interface RegisterTableProps {
   registerData: RegisterDataType[];
@@ -77,11 +78,11 @@ const RegisterTable: FC<RegisterTableProps> = ({ registerData }) => {
           return <span className="text-base">{cellValue}</span>;
         case "actions":
           return (
-            <div className="relative flex items-center gap-2">
+            <div className="flex justify-start items-center">
               <Tooltip color="success" content="Approve">
                 <Button
                   isIconOnly
-                  variant="shadow"
+                  variant="light"
                   color="success"
                   onClick={() => handleCreateUser(rowData)}
                 >
@@ -201,7 +202,7 @@ const UserTable: FC<UserTableProps> = ({ userData }) => {
       case "profession":
         return <span className="text-base">{cellValue}</span>;
       case "dataUsage":
-        return <span className="text-base">{cellValue}</span>;
+        return <span className="text-base">{formatByteData(cellValue as number)}</span>;
       case "role":
         return <span className="text-base capitalize">{cellValue}</span>;
       case "actions":

@@ -23,7 +23,7 @@ const page = ({}) => {
           register
         </Link>
       </CardFooter>
-      <Meteors number={20}></Meteors>
+      <Meteors number={10}></Meteors>
     </Card>
   );
 };
