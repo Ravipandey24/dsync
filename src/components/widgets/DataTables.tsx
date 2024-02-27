@@ -17,11 +17,13 @@ import {
   Chip,
   Tooltip,
   getKeyValue,
+  Button,
 } from "@nextui-org/react";
 import { CheckIcon, TrashIcon } from "@radix-ui/react-icons";
 import { FC, Key, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import ErrorCard from "../cards/ErrorCard";
+import DeleteModal from "../ui/modal";
 
 interface RegisterTableProps {
   registerData: RegisterDataType[];
@@ -42,6 +44,7 @@ const RegisterTable: FC<RegisterTableProps> = ({ registerData }) => {
       wrapper: ["w-full", "bg-background/80"],
       th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
       td: [
+        "mt-2",
         // changing the rows border radius
         // first
         "group-data-[first=true]:first:before:rounded-none",
@@ -76,21 +79,18 @@ const RegisterTable: FC<RegisterTableProps> = ({ registerData }) => {
           return (
             <div className="relative flex items-center gap-2">
               <Tooltip color="success" content="Approve">
-                <span
-                  className="text-success cursor-pointer active:opacity-50"
+                <Button
+                  isIconOnly
+                  variant="shadow"
+                  color="success"
                   onClick={() => handleCreateUser(rowData)}
                 >
                   <CheckIcon className="h-6 w-6" />
-                </span>
+                </Button>
               </Tooltip>
-              <Tooltip color="danger" content="Decline">
-                <span
-                  className="text-lg text-danger cursor-pointer active:opacity-50"
-                  onClick={() => handleDelete(rowData)}
-                >
-                  <TrashIcon className="h-6 w-6" />
-                </span>
-              </Tooltip>
+                <DeleteModal onDelete={handleDelete} data={rowData}>
+                  <span>Do you really want to delete this request?</span>
+                </DeleteModal>
             </div>
           );
         default:
@@ -100,8 +100,8 @@ const RegisterTable: FC<RegisterTableProps> = ({ registerData }) => {
     []
   );
 
-  const handleDelete = async (registerData: RegisterDataType) => {
-    const { success } = await deleteRegisterationRequest(registerData);
+  const handleDelete = async (data: RegisterDataType) => {
+    const { success } = await deleteRegisterationRequest(data);
     if (success) {
       toast.success("Request deleted successfully");
     } else {
@@ -176,6 +176,7 @@ const UserTable: FC<UserTableProps> = ({ userData }) => {
       wrapper: ["w-full", "bg-background/80", "border", "border-content1"],
       th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
       td: [
+        "mt-2",
         // changing the rows border radius
         // first
         "group-data-[first=true]:first:before:rounded-none",
@@ -205,16 +206,11 @@ const UserTable: FC<UserTableProps> = ({ userData }) => {
         return <span className="text-base capitalize">{cellValue}</span>;
       case "actions":
         return (
-          <div className="relative flex items-center">
+          <div className="flex items-center justify-start pl-2">
             {rowData.role !== "admin" && (
-              <Tooltip color="danger" content="Delete">
-                <span
-                  className="text-lg text-danger cursor-pointer active:opacity-50"
-                  onClick={() => handleDelete(rowData)}
-                >
-                  <TrashIcon className="h-6 w-6" />
-                </span>
-              </Tooltip>
+              <DeleteModal onDelete={handleDelete} data={rowData}>
+                <span>Do you really want to delete this User?</span>
+              </DeleteModal>
             )}
           </div>
         );

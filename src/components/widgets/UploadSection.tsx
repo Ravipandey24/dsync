@@ -10,7 +10,7 @@ import {
   useDisclosure,
 } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { UploadIcon } from "@radix-ui/react-icons"; 
+import { TrashIcon, UploadIcon } from "@radix-ui/react-icons";
 import { useDropzone } from "@uploadthing/react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { useUploadThing } from "@/db/uploadthing/uploadthing";
@@ -20,13 +20,16 @@ import { Progress } from "@nextui-org/progress";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-
-export default function UploadModal() {
+export default function UploadModal({
+  availableSpace,
+}: {
+  availableSpace: number;
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      <Button onPress={onOpen} variant="shadow">
+      <Button onPress={onOpen} className="px-6" variant="shadow">
         <span>Upload File</span>
         <UploadIcon></UploadIcon>
       </Button>
@@ -35,7 +38,10 @@ export default function UploadModal() {
           {(onClose) => (
             <>
               <ModalBody className="pt-10">
-                <FileUploader></FileUploader>
+                <FileUploader
+                  close={onClose}
+                  availableSpace={availableSpace}
+                ></FileUploader>
               </ModalBody>
             </>
           )}
@@ -45,7 +51,13 @@ export default function UploadModal() {
   );
 }
 
-function FileUploader() {
+function FileUploader({
+  close,
+  availableSpace,
+}: {
+  close: () => void;
+  availableSpace: number;
+}) {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -53,22 +65,35 @@ function FileUploader() {
   }, []);
   const router = useRouter();
 
-  const { startUpload, isUploading, permittedFileInfo } = useUploadThing("fileUploader", {
-    onUploadProgress: (value) => {
-      if(value !== 100) {
-        setProgress(value)
-      }
-    },
-    onClientUploadComplete: (e) => {
-      setFiles([]);
-      setProgress(100);
-      toast.success("uploaded successfully");
-      router.refresh();
-    },
-    onUploadError: (e) => {
-      toast.error(e.message);
-    },
-  });
+  const { startUpload, isUploading, permittedFileInfo } = useUploadThing(
+    "fileUploader",
+    {
+      onUploadProgress: (value) => {
+        if (value !== 100) {
+          setProgress(value);
+        }
+      },
+      onClientUploadComplete: (e) => {
+        setFiles([]);
+        setProgress(100);
+        toast.success("uploaded successfully");
+        close();
+        router.refresh();
+      },
+      onUploadError: (e) => {
+        toast.error(e.message);
+      },
+    }
+  );
+
+  const handleUpload = () => {
+    const totalFileSize = files.reduce((acc, file) => acc + file.size, 0);
+    if (totalFileSize > availableSpace) {
+      toast.error("You don't have enough space!");
+      return;
+    }
+    startUpload(files);
+  };
 
   const fileTypes = permittedFileInfo?.config
     ? Object.keys(permittedFileInfo?.config)
@@ -103,20 +128,26 @@ function FileUploader() {
             className="max-w-md"
           />
         ) : null}
-        <Button
-          onClick={() => startUpload(files!)}
-          className="gap-2"
-          isDisabled={isUploading || files.length === 0}
-        >
-          <span>
-            {files.length > 0
-              ? isUploading
-                ? "Uploading..."
-                : `Upload ${files.length} files`
-              : "Upload"}
-          </span>
-          {isUploading && <Spinner size="sm" color="white"></Spinner>}
-        </Button>
+        <div className="flex gap-2 items-center">
+          <Button
+            onClick={handleUpload}
+            variant="solid"
+            className="gap-2"
+            isDisabled={isUploading || files.length === 0}
+          >
+            <span>
+              {files.length > 0
+                ? isUploading
+                  ? "Uploading..."
+                  : `Upload ${files.length} files`
+                : "Upload"}
+            </span>
+            {isUploading && <Spinner size="sm" color="white"></Spinner>}
+          </Button>
+          {!(isUploading || files.length === 0) && <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={()=> setFiles([])}>
+            <TrashIcon className="h-5 w-5" />
+          </span>}
+        </div>
       </div>
     </div>
   );

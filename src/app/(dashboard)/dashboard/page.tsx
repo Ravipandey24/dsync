@@ -9,10 +9,17 @@ import DeleteButton from "@/components/widgets/DeleteButton";
 import ErrorCard from "@/components/cards/ErrorCard";
 import { GridBackground } from "@/components/widgets/GridDotBackground";
 import FileCard from "@/components/cards/FileCard";
+import { getUsageData } from "@/db/redis/api";
+import { Progress } from "@nextui-org/progress";
+import { formatByteData } from "@/lib/utils";
+import DataProgressBar from "@/components/ui/progress-bar";
 
 export default async function Home() {
   const user = await currentUser();
   const userFiles = await getAllUserFiles(user?.username!);
+  const { availableSpace, limit, dataUsage } = await getUsageData(
+    user?.username!
+  );
 
   return (
     <div className="container z-10 mx-auto px-4 space-y-3 py-6">
@@ -22,17 +29,21 @@ export default async function Home() {
           className="flex flex-row justify-between items-center"
         >
           <span className="text-lg ">Dashboard</span>
-          <UploadModal></UploadModal>
+          <div className="flex gap-4 items-end">
+            <DataProgressBar dataUsage={dataUsage} limit={limit}></DataProgressBar>
+            <UploadModal availableSpace={availableSpace}></UploadModal>
+          </div>
         </CardBody>
       </Card>
       {userFiles.length ? (
         <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-          {userFiles.map(({ fileName, fileUrl, fileKey }, i) => (
+          {userFiles.map(({ fileName, fileUrl, fileKey, fileSize }, i) => (
             <FileCard
               key={i}
               fileName={fileName}
               fileUrl={fileUrl}
               fileKey={fileKey}
+              fileSize={fileSize}
               username={user?.username!}
             ></FileCard>
           ))}

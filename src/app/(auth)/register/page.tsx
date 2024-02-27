@@ -1,4 +1,5 @@
 import RegisterForm from "@/components/forms/registerForm";
+import { Meteors } from "@/components/ui/meteors";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import Link from "next/link";
 
@@ -25,6 +26,7 @@ const page = ({}) => {
           login
         </Link>
       </CardFooter>
+      <Meteors number={20}></Meteors>
     </Card>
   );
 };

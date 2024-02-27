@@ -1,9 +1,8 @@
-import { addFileToUser } from "@/db/redis/api";
+import { addFileToUser, updateUserUsage } from "@/db/redis/api";
 import { currentUser } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
-
 
 const f = createUploadthing();
 // FileRouter for your app, can contain multiple FileRoutes
@@ -24,13 +23,18 @@ export const ourFileRouter = {
 
       // If you throw, the user will not be able to upload
       if (!user) throw new UploadThingError("Unauthorized");
-   
+
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
       return { username: user.username };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      await addFileToUser(metadata.username!, file.name, file.key);      
+      await addFileToUser(metadata.username!, {
+        fileKey: file.key,
+        fileName: file.name,
+        fileSize: file.size,
+      });
+      await updateUserUsage(metadata.username!, file.size);
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.username };
     }),

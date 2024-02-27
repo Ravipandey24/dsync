@@ -17,24 +17,19 @@ const UserCard = ({}) => {
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const { signOut } = useClerk();
+  const isUserAdmin = user?.publicMetadata?.isAdmin as boolean;
 
-  const handleProfileClick = () => {
-    router.push("/user-profile");
-  };
-  
   if (!isLoaded) return null;
 
   return (
-    <Dropdown
-      showArrow
-    >
+    <Dropdown showArrow>
       <DropdownTrigger>
         <User
           className="hover:cursor-pointer"
           name={user?.username?.toLocaleUpperCase()}
           description={user?.publicMetadata?.profession as string}
           avatarProps={{
-            src: user?.imageUrl
+            src: user?.imageUrl,
           }}
         />
       </DropdownTrigger>
@@ -42,10 +37,21 @@ const UserCard = ({}) => {
         <DropdownItem
           key="profile"
           className="h-12"
-          onClick={handleProfileClick}
+          onClick={() => router.push("/dashboard/user-profile")}
         >
           Profile
         </DropdownItem>
+        {isUserAdmin ? (
+          <DropdownItem
+            key="admin"
+            className="h-12"
+            onClick={() => router.push("/dashboard/admin")}
+          >
+            Admin Panel
+          </DropdownItem>
+        ) : (
+          <></>
+        )}
         <DropdownItem
           key="delete"
           className="text-lg text-danger h-12"

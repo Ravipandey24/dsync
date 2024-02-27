@@ -9,8 +9,8 @@ var transporter = nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
     port: 587,
     auth: {
-      user: process.env.BRAVE_USER,
-      pass: process.env.BRAVE_PASS,
+      user: process.env.BREVO_USER,
+      pass: process.env.BREVO_PASS,
     }
   });
 

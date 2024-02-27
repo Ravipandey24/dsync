@@ -5,13 +5,14 @@ import {
   NavbarItem,
 } from "@nextui-org/navbar";
 import UserCard from "../cards/UserCard";
+import Link from "next/link";
 
 
 export default function Header() {
   return (
     <Navbar maxWidth="full" position="sticky" className="container mx-auto top-0" isBlurred>
       <NavbarBrand>
-        <span className="text-2xl font-bold text-inherit tracking-tight">DSync</span>
+        <Link href='/' className="text-2xl font-bold text-inherit tracking-tight">DSync</Link>
       </NavbarBrand>
       <NavbarContent justify="end">
         <NavbarItem as="div" className="flex">

@@ -8,6 +8,7 @@ import {
   UserDataType,
   RegisterDataType,
   UserType,
+  UserPlanType,
 } from "../types";
 import { clerkClient } from "@clerk/nextjs";
 import { sendRegisterationEmail } from "@/lib/nodemailer";
@@ -79,6 +80,33 @@ export const deleteUserData = async (userData: UserDataType) => {
     return { success: false };
   }
 }
+
+
+export const getUsageData = async (username: string) => {
+  try {
+    const { data } = await getUserData(username);
+    const { limit } = await getPlanLimits(data!.plan);
+    const availableSpace = limit - data!.dataUsage;
+
+    return { availableSpace, limit, dataUsage: data!.dataUsage};
+  } catch (error) {
+    console.error(error);
+    return { availableSpace: 0, limit: 0, dataUsage: 0 };
+  }
+}
+
+export const updateUserUsage = async (username: string, fileSize: number) => {
+  try {
+    const { data } = await getUserData(username);
+    const updatedUsage = Number(data!.dataUsage) + fileSize;
+    await redis.hset(`user:${username}:data`, { dataUsage: updatedUsage });
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false };
+  }
+};
+
 
 // User Registration
 export const createRegisterationRequest = async (
@@ -162,6 +190,7 @@ export const approveRegisterationRequest = async (
       password,
       publicMetadata: {
         profession,
+        isAdmin: false,
       },
     });
     if (!userId) {
@@ -175,6 +204,7 @@ export const approveRegisterationRequest = async (
       profession,
       role: "user",
       dataUsage: 0,
+      plan: "grade3",
     });
     if (!addUserStatus || !addUserDataStatus) {
       return { success: false, message: "Failed to add user to database!" };
@@ -202,11 +232,9 @@ export const approveRegisterationRequest = async (
 // User File Management
 export const addFileToUser = async (
   username: string,
-  fileName: string,
-  fileKey: string
+  fileData: FileDataType
 ) => {
   try {
-    const fileData = { fileName, fileKey };
     await redis.sadd(redisSluggify(username), fileData);
   } catch (error) {
     console.error(error);
@@ -227,12 +255,23 @@ export const getUserFiles = async (username: string) => {
 
 export const deleteUserFileDB = async (
   username: string,
-  fileName: string,
-  fileKey: string
+  fileData: FileDataType
 ) => {
   try {
-    await redis.srem(redisSluggify(username), { fileName, fileKey });
+    await redis.srem(redisSluggify(username), fileData);
   } catch (error) {
     console.error(error);
   }
 };
+
+// plans management
+export const getPlanLimits = async (plan: UserPlanType) => {
+  try {
+    const limit = await redis.hget('plans:limit', plan) as number;
+    return { limit };
+  } catch (error) {
+    console.error(error);
+    return { limit: 0 };
+  }
+}
+
