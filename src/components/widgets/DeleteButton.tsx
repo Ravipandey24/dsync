@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { deleteFile } from "@/db";
 import { FileDataType } from "@/db/types";
@@ -6,7 +6,7 @@ import { Button } from "@nextui-org/button";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { FC } from "react";
 import { toast } from "sonner";
-
+import DeleteModal from "../ui/modal";
 
 interface DeleteButtonProps {
   username: string;
@@ -24,9 +24,13 @@ const DeleteButton: FC<DeleteButtonProps> = ({ username, fileData }) => {
   };
 
   return (
-    <Button onClick={handleClick} variant="shadow" isIconOnly color="danger">
-      <TrashIcon className="h-5 w-5"></TrashIcon>
-    </Button>
+    <DeleteModal
+      onDelete={handleClick}
+      data={{ username, fileData }}
+      variant="shadow"
+    >
+      <span>Do you wish to Delete '{fileData.fileName}'?</span>
+    </DeleteModal>
   );
 };
 

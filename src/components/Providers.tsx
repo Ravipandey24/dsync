@@ -5,6 +5,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Toaster } from "sonner";
 import { dark } from "@clerk/themes";
 import { siteConfig } from "@/lib/config";
+import { classNames } from "uploadthing/client";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -17,7 +18,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <Toaster
         position="top-center"
         theme="dark"
-        className={siteConfig.bodyFont.className + " text-lg"}
+        toastOptions={{
+          classNames: {
+            title: `${siteConfig.bodyFont.className} text-base`,
+          }
+        }}
       />
     </ClerkProvider>
   );

@@ -10,9 +10,9 @@ interface DataProgressBarProps {
 const DataProgressBar: FC<DataProgressBarProps> = ({ limit, dataUsage }) => {
   return (
     <div className="flex justify-end">
-      <div className="w-48 lg:w-80">
+      <div className="w-44 md:w-56 lg:w-80">
         <Progress
-          label="Usage"
+          label=" "
           size="sm"
           value={dataUsage}
           maxValue={limit}

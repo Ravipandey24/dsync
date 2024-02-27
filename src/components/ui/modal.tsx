@@ -3,28 +3,32 @@ import {
   Modal,
   ModalContent,
   ModalHeader,
-  ModalBody,
   ModalFooter,
   Button,
   useDisclosure,
   Tooltip,
 } from "@nextui-org/react";
 import { TrashIcon } from "@radix-ui/react-icons";
-import { RegisterDataType, UserDataType } from "@/db/types";
 
 interface DeleteModalProps {
   onDelete: (data: any) => Promise<void>;
   data: any;
   children: React.ReactNode;
+  variant?: "flat" | "shadow" | "solid" | "light";
 }
 
-const DeleteModal = ({ children, onDelete, data }: DeleteModalProps) => {
+const DeleteModal = ({
+  children,
+  onDelete,
+  data,
+  variant = "light",
+}: DeleteModalProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
       <Tooltip color="danger" content="Delete">
-        <Button isIconOnly color="danger" variant="light" onPress={onOpen}>
+        <Button isIconOnly color="danger" variant={variant} onPress={onOpen}>
           <TrashIcon className="h-6 w-6" />
         </Button>
       </Tooltip>
@@ -37,7 +41,10 @@ const DeleteModal = ({ children, onDelete, data }: DeleteModalProps) => {
                 <Button
                   color="danger"
                   variant="solid"
-                  onPress={() => onDelete(data)}
+                  onPress={() => {
+                    onDelete(data);
+                    onClose();
+                  }}
                 >
                   Delete
                 </Button>
