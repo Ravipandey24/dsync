@@ -11,6 +11,7 @@ const DataProgressBar: FC<DataProgressBarProps> = ({ limit, dataUsage }) => {
   return (
     <Progress
       size="sm"
+      classNames={{}}
       value={dataUsage}
       maxValue={limit}
       color={

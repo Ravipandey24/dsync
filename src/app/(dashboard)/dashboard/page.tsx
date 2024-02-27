@@ -26,9 +26,9 @@ export default async function Home() {
       <Card className="w-full">
         <CardBody
           as="div"
-          className="flex flex-row justify-between items-center"
+          className="flex flex-col sm:flex-row justify-between items-end sm:items-center"
         >
-          <span className="text-lg ">Dashboard</span>
+          <span className="text-lg w-full sm:w-fit justify-start">Dashboard</span>
           <div className="flex gap-4 items-end">
             <DataProgressBar dataUsage={dataUsage} limit={limit}></DataProgressBar>
             <UploadModal availableSpace={availableSpace}></UploadModal>
