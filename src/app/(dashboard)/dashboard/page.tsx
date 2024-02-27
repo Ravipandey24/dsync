@@ -1,18 +1,12 @@
 import UploadModal from "@/components/widgets/UploadSection";
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import { UserButton, currentUser } from "@clerk/nextjs";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Meteors } from "@/components/ui/meteors";
+import { currentUser } from "@clerk/nextjs";
+import { Card, CardBody } from "@nextui-org/card";
 import { getAllUserFiles } from "@/db";
-import DeleteButton from "@/components/widgets/DeleteButton";
 import ErrorCard from "@/components/cards/ErrorCard";
-import { GridBackground } from "@/components/widgets/GridDotBackground";
 import FileCard from "@/components/cards/FileCard";
 import { getUsageData } from "@/db/redis/api";
-import { Progress } from "@nextui-org/progress";
-import { formatByteData } from "@/lib/utils";
 import DataProgressBar from "@/components/ui/progress-bar";
+
 
 export default async function Home() {
   const user = await currentUser();
