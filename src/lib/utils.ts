@@ -2,8 +2,6 @@ import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 
-var generator = require('generate-password');
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -23,15 +21,10 @@ export const formatByteData = (size: number) => {
   }
 }
 
-
-
 export const getPercentage = (used: number, total: number) => {
   return Number(((used / total) * 100).toFixed(2));
 }
 
 export function generatedPassword() {
-  return generator.generate({
-    length: 8,
-    uppercase: false
-  }) as string;
+  return Math.random().toString(36).slice(-8);
 }
