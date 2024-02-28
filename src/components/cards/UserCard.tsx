@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useClerk, useUser } from "@clerk/nextjs";
 import {
   Dropdown,
@@ -41,17 +42,14 @@ const UserCard = ({}) => {
         >
           Profile
         </DropdownItem>
-        {isUserAdmin ? (
           <DropdownItem
+          textValue="Admin Panel"
             key="admin"
-            className="h-12"
+            className={cn("h-12", !isUserAdmin && "hidden")}
             onClick={() => router.push("/dashboard/admin")}
           >
             Admin Panel
           </DropdownItem>
-        ) : (
-          <></>
-        )}
         <DropdownItem
           key="delete"
           className="text-lg text-danger h-12"

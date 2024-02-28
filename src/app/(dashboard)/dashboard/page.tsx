@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="container z-10 mx-auto px-4 space-y-3 py-6">
-      <Card className="w-full">
+      <Card className="w-full bg-content1/90">
         <CardBody
           as="div"
           className="flex flex-row justify-between items-center"

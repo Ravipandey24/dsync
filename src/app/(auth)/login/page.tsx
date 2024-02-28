@@ -6,8 +6,7 @@ import { Link } from "@nextui-org/link";
 const page = ({}) => {
   return (
     <Card
-      className="fixed w-72 md:w-96 z-20 mx-4"
-      isBlurred
+      className="fixed w-72 md:w-96 z-20 mx-4 border border-content1/40 bg-background/70"
       radius="md"
       shadow="lg"
     >

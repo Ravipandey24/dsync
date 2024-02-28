@@ -15,7 +15,7 @@ const ErrorCard: FC<ErrorCardProps> = ({
   className,
 }) => {
   return (
-    <Card className={cn(className)} isBlurred>
+    <Card className={cn("border border-content1 bg-background/80", className)}>
       <CardBody className="space-y-2">
         {children}
         <span className="text-2xl text-center">{heading}</span>

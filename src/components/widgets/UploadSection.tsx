@@ -34,10 +34,10 @@ export default function UploadModal({
         <UploadIcon></UploadIcon>
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent className="p-3">
+        <ModalContent className="p-3 border border-content1 bg-background">
           {(onClose) => (
             <>
-              <ModalBody className="pt-10">
+              <ModalBody className="pt-10 ">
                 <FileUploader
                   close={onClose}
                   availableSpace={availableSpace}
@@ -105,8 +105,8 @@ function FileUploader({
   });
 
   return (
-    <div>
-      <Card>
+    <>
+      <Card shadow="lg" className="bg-content1/30">
         <div
           {...getRootProps()}
           className="h-24 w-full p-4 flex justify-center items-center cursor-pointer"
@@ -131,7 +131,7 @@ function FileUploader({
         <div className="flex gap-2 items-center">
           <Button
             onClick={handleUpload}
-            variant="solid"
+            variant="shadow"
             className="gap-2"
             isDisabled={isUploading || files.length === 0}
           >
@@ -144,12 +144,12 @@ function FileUploader({
             </span>
             {isUploading && <Spinner size="sm" color="white"></Spinner>}
           </Button>
-          {!(isUploading || files.length === 0) && <span className="text-lg text-danger cursor-pointer active:opacity-50" onClick={()=> setFiles([])}>
+          {!(isUploading || files.length === 0) && <Button color="danger" variant="light" isIconOnly onClick={()=> setFiles([])}>
             <TrashIcon className="h-5 w-5" />
-          </span>}
+          </Button>}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

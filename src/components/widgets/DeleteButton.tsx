@@ -27,7 +27,6 @@ const DeleteButton: FC<DeleteButtonProps> = ({ username, fileData }) => {
     <DeleteModal
       onDelete={handleClick}
       data={{ username, fileData }}
-      variant="shadow"
     >
       <span>Do you wish to Delete &apos;{fileData.fileName}&apos;?</span>
     </DeleteModal>

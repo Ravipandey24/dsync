@@ -21,9 +21,9 @@ const FileCard: FC<FileCardProps> = ({
   username,
 }) => {
   return (
-    <Card className="w-full h-56" isBlurred>
+    <Card className="w-full h-56 border border-content1 bg-background/80">
       <CardBody>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <span>{formatByteData(fileSize)}</span>
           <DeleteButton
             username={username}

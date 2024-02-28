@@ -32,7 +32,7 @@ const DeleteModal = ({
           <TrashIcon className="h-6 w-6" />
         </Button>
       </Tooltip>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent className="pt-2">
           {(onClose) => (
             <>
@@ -40,7 +40,7 @@ const DeleteModal = ({
               <ModalFooter className="flex justify-center">
                 <Button
                   color="danger"
-                  variant="solid"
+                  variant="flat"
                   onPress={() => {
                     onDelete(data);
                     onClose();
@@ -48,7 +48,7 @@ const DeleteModal = ({
                 >
                   Delete
                 </Button>
-                <Button onPress={onClose}>Close</Button>
+                <Button onPress={onClose} variant="flat">Close</Button>
               </ModalFooter>
             </>
           )}

@@ -220,7 +220,7 @@ export const approveRegisterationRequest = async (
     if (!deleteRegisterationStatus) {
       return { success: false, message: "Failed to delete request!" };
     }
-
+    
     revalidatePath("/admin");
     return { success: true, message: "User created successfully!" };
   } catch (error) {

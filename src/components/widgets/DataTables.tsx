@@ -42,7 +42,7 @@ const RegisterTable: FC<RegisterTableProps> = ({ registerData }) => {
 
   const classNames = useMemo(
     () => ({
-      wrapper: ["w-full", "bg-background/80"],
+      wrapper: ["w-full", "bg-background/80", "border", "border-content1"],
       th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
       td: [
         "mt-2",
