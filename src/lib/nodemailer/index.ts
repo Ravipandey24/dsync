@@ -20,7 +20,7 @@ export async function sendRegisterationEmail(
     });
     const emailHtml = render(RegisterEmail({ username, password }));
     await transporter.sendMail({
-      from: "Himanshu from DSync <himanshu@example.com>", // sender address
+      from: `Himanshu from DSync <${process.env.BREVO_USER}>`, // sender address
       to: email, // list of receivers
       subject: "Welcome to DSync", // Subject line
       html: emailHtml, // html body
