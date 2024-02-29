@@ -1,7 +1,7 @@
 import { UserProfile } from "@clerk/nextjs";
 
 const UserProfilePage = () => (
-  <div className="container mx-auto flex justify-center py-6">
+  <div className="container mx-auto flex justify-center my-6">
     <UserProfile path="/dashboard/user-profile" routing="path" />
   </div>
 );

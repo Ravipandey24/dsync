@@ -106,7 +106,7 @@ function FileUploader({
 
   return (
     <>
-      <Card shadow="lg" className="bg-content1/30">
+      <Card shadow="lg" className="bg-content1/60">
         <div
           {...getRootProps()}
           className="h-24 w-full p-4 flex justify-center items-center cursor-pointer"
